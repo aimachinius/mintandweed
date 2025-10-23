@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['crop', 'weed']
+
+roboflow:
+  workspace: mint-and-weed
+  project: mint-and-weed-fd3mp
+  version: 7
+  license: MIT
+  url: https://universe.roboflow.com/mint-and-weed/mint-and-weed-fd3mp/dataset/7
