@@ -70,7 +70,7 @@ print(f"Ghi dữ liệu phân tích vào file: {OUTPUT_CSV_FILE}")
 print("=" * 60)
 
 # Tạo thư mục đầu ra cho ảnh nếu chưa có
-output_image_dir = 'runs/segment/predict_with_centroids'
+output_image_dir = 'runs/segment/predict_with_centroids_4'
 os.makedirs(output_image_dir, exist_ok=True)
 
 
@@ -92,7 +92,8 @@ with open(OUTPUT_CSV_FILE, mode='w', newline='') as file:
         original_image = r.orig_img.copy()
 
         # Tính trọng tâm và vẽ
-        center_points, im_result_with_centroids = calculate_centroid_and_draw(r, original_image)
+        # center_points, im_result_with_centroids = calculate_centroid_and_draw(r, original_image)
+        center_points, im_result_with_centroids = calculate_centroid_and_draw(r, r.plot())
 
         # Lưu ảnh
         output_image_path = os.path.join(output_image_dir, file_name)
@@ -111,7 +112,6 @@ with open(OUTPUT_CSV_FILE, mode='w', newline='') as file:
                 cls_id = class_ids[i]
                 class_name = model.names[cls_id] if hasattr(model, "names") else f"Class {cls_id}"
                 cx, cy = center_points[i] if i < len(center_points) and center_points[i] is not None else ("N/A", "N/A")
-
                 writer.writerow([file_name, i + 1, class_name, f"{score:.4f}",
                                 x1, y1, x2, y2, cx, cy])
         else:
